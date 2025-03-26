@@ -1,0 +1,2011 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CashAI - Finanzas al alcance de todos en Paraguay con IA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        :root {
+            --primary: #8B7FFF;
+            --primary-light: #A7A0FF;
+            --success: #A8E6CF;
+            --warning: #FFB7B2;
+            --bg-pattern: #F8F7FF;
+        }
+
+        .gradient-overlay {
+            background: linear-gradient(135deg, rgba(139, 127, 255, 0.9) 0%, rgba(167, 160, 255, 0.7) 100%);
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+        }
+
+        .feature-card {
+            transition: all 0.5s ease;
+            transform-style: preserve-3d;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px) rotateX(2deg) rotateY(2deg);
+            box-shadow: 0 20px 40px rgba(139, 127, 255, 0.2);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(139, 127, 255, 0.3);
+        }
+
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: translateX(-100%);
+        }
+
+        .btn-primary:hover::after {
+            transform: translateX(100%);
+            transition: transform 0.6s ease;
+        }
+
+        .whitelist-counter {
+            background: linear-gradient(135deg, var(--success) 0%, var(--primary-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .pattern-bg {
+            background-color: var(--bg-pattern);
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92FF' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .app-screenshot {
+            box-shadow: 0 25px 50px -12px rgba(139, 127, 255, 0.25);
+            border-radius: 24px;
+            transform: perspective(1500px) rotateY(-25deg) translateX(20px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            max-width: 380px;
+            margin-left: auto;
+            will-change: transform;
+        }
+
+        .app-screenshot:hover {
+            transform: perspective(1500px) rotateY(5deg) translateY(-15px) translateX(-20px);
+            box-shadow: 0 40px 80px -12px rgba(139, 127, 255, 0.4);
+        }
+
+        .app-screenshot img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            border-radius: 24px;
+        }
+
+        .steps-container {
+            position: relative;
+        }
+
+        .steps-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary-light), var(--success));
+            transform: translateX(-50%);
+        }
+
+        @keyframes float {
+            0% {
+                transform: perspective(1500px) rotateY(-25deg) translateX(20px);
+            }
+            50% {
+                transform: perspective(1500px) rotateY(-20deg) translateY(-10px) translateX(10px);
+            }
+            100% {
+                transform: perspective(1500px) rotateY(-25deg) translateX(20px);
+            }
+        }
+
+        .hero-app-screenshot {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-app-screenshot:hover {
+            animation-play-state: paused;
+        }
+
+        .app-carousel {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            padding: 20px 0;
+        }
+
+        .app-carousel-container {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            gap: 20px;
+            padding: 0 20px;
+        }
+
+        .app-carousel-slide {
+            min-width: 320px;
+            width: 320px;
+            flex-shrink: 0;
+        }
+
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 24px;
+        }
+
+        .carousel-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--primary-light);
+            opacity: 0.3;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-indicator.active {
+            opacity: 1;
+            transform: scale(1.2);
+        }
+
+        .carousel-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-button:hover {
+            background: var(--primary-light);
+            color: white;
+        }
+
+        .carousel-button.prev {
+            left: 20px;
+        }
+
+        .carousel-button.next {
+            right: 20px;
+        }
+
+        /* Estilos para la sección de precios */
+        .pricing {
+            padding: 80px 0;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            max-width: 1485px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .pricing-header h3 {
+            font-size: 1.5rem;
+            color: #2d3436;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .price {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .price span {
+            font-size: 0.9rem;
+            color: #636e72;
+        }
+
+        .pricing-features {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        .pricing-features li {
+            margin-bottom: 12px;
+            color: #636e72;
+            display: flex;
+            align-items: center;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        @media (max-width: 1485px) {
+            .pricing-grid {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 900px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+            }
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .pricing-card.popular {
+            border: none;
+            transform: none;
+        }
+
+        .pricing-card.popular:hover {
+            transform: translateY(-10px);
+        }
+
+        .pricing-card:nth-child(4) {
+            border: 3px solid var(--primary);
+            transform: scale(1.05);
+        }
+
+        .pricing-card:nth-child(4):hover {
+            transform: scale(1.05) translateY(-10px);
+        }
+
+        .pricing-header {
+            margin-bottom: 30px;
+        }
+
+        .savings {
+            background: #4ade80;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-top: 8px;
+            box-shadow: 0 4px 12px rgba(74, 222, 128, 0.3);
+        }
+
+        .pricing-features i {
+            color: #00b894;
+            margin-right: 10px;
+        }
+
+        /* Ajuste del grid de características */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Estilos para How It Works Section */
+        .how-it-works {
+            padding: 80px 0;
+            background: var(--bg-pattern);
+        }
+
+        .how-it-works h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #2d3436;
+            margin-bottom: 60px;
+        }
+
+        .steps {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .step {
+            background: white;
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .step:hover {
+            transform: translateY(-10px);
+        }
+
+        .step-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .step-icon i {
+            font-size: 24px;
+            color: white;
+        }
+
+        .step h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2d3436;
+            margin-bottom: 16px;
+        }
+
+        .step p {
+            color: #636e72;
+            line-height: 1.6;
+        }
+
+        /* Estilos para Features Section */
+        .features {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #2d3436;
+            margin-bottom: 60px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(139, 127, 255, 0.2);
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .feature-icon i {
+            font-size: 24px;
+            color: white;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2d3436;
+            margin-bottom: 16px;
+        }
+
+        .feature-card p {
+            color: #636e72;
+            line-height: 1.6;
+        }
+
+        /* Estilos para Pricing Section */
+        .pricing {
+            padding: 80px 0;
+        }
+
+        .pricing h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #2d3436;
+            margin-bottom: 60px;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1485px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .pricing-card.popular {
+            border: none;
+            transform: none;
+        }
+
+        .pricing-card.popular:hover {
+            transform: translateY(-10px);
+        }
+
+        .pricing-card:nth-child(4) {
+            border: 3px solid var(--primary);
+            transform: scale(1.05);
+        }
+
+        .pricing-card:nth-child(4):hover {
+            transform: scale(1.05) translateY(-10px);
+        }
+
+        .pricing-header {
+            margin-bottom: 30px;
+        }
+
+        .pricing-header h3 {
+            font-size: 1.8rem;
+            color: #2d3436;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .price {
+            font-size: 2.3rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+
+        .price span {
+            font-size: 1rem;
+            color: #636e72;
+        }
+
+        .savings {
+            background: #4ade80;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-top: 8px;
+            box-shadow: 0 4px 12px rgba(74, 222, 128, 0.3);
+        }
+
+        .pricing-features {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 30px 0;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            margin-bottom: 16px;
+            color: #636e72;
+            display: flex;
+            align-items: center;
+        }
+
+        .pricing-features i {
+            color: var(--success);
+            margin-right: 12px;
+            font-size: 1.1rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(139, 127, 255, 0.3);
+        }
+
+        /* Seccion de seguridad*/
+
+        .security-shield {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .security-shield::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(139, 127, 255, 0.2) 0%, rgba(167, 160, 255, 0.1) 100%);
+            border-radius: 24px;
+            z-index: 1;
+        }
+
+        .security-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 2;
+        }
+
+        .security-particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: rgba(139, 127, 255, 0.5);
+            border-radius: 50%;
+            animation: float-around 4s infinite ease-in-out;
+        }
+
+        /*secciion navbar*/
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: #8B7FFF;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 70%;
+        }
+
+        .nav-link.active::after {
+            width: 70%;
+        }
+
+        #mainNavbar {
+            transition: all 0.3s ease;
+        }
+
+        #mainNavbar.scrolled {
+            /*background-color: rgba(255, 255, 255, 0.95);*/
+            /*backdrop-filter: blur(10px);*/
+            /*box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);*/
+        }
+
+        /* Ajustar el padding del hero para evitar superposición con el navbar fijo */
+        #topPage {
+            padding-top: 90px;
+        }
+    </style>
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Importar los módulos necesarios de Firebase
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDoc, doc, setDoc, increment, query, where, getDocs } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-analytics.js";
+
+        // Configuración de Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyBslwsSz9QMcH8aYwLBTm7at1YZuX9ILKw",
+            authDomain: "whilelist-cashai.firebaseapp.com",
+            projectId: "whilelist-cashai",
+            storageBucket: "whilelist-cashai.firebasestorage.app",
+            messagingSenderId: "910159647583",
+            appId: "1:910159647583:web:0bf220994e73c05df65cea",
+            measurementId: "G-19BD6L44RQ"
+        };
+
+        // Inicializar Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const analytics = getAnalytics(app);
+
+        // Exponer funciones al ámbito global para usar desde otros scripts
+        window.submitToWhitelist = async function(name, email) {
+            try {
+                // Normalizar el email a minúsculas
+                email = email.toLowerCase();
+
+                // Verificar disponibilidad en la whitelist
+                const statsRef = doc(db, "stats", "whitelist");
+                const statsDoc = await getDoc(statsRef);
+
+                let currentCount = 0;
+                let maxSpots = 100;
+
+                // Si no existe el documento de estadísticas, lo creamos
+                if (!statsDoc.exists()) {
+                    await setDoc(statsRef, { count: 0, maxSpots: 100 });
+                } else {
+                    currentCount = statsDoc.data().count || 0;
+                    maxSpots = statsDoc.data().maxSpots || 100;
+
+                    // Verificar si aún hay cupos disponibles
+                    if (currentCount >= maxSpots) {
+                        return {
+                            success: false,
+                            message: "Lo sentimos, la whitelist está completa en este momento."
+                        };
+                    }
+                }
+
+                // Verificar si el email ya existe usando getDoc en lugar de query
+                const emailDocRef = doc(db, "whitelist", email);
+                const emailDoc = await getDoc(emailDocRef);
+                const emailExists = emailDoc.exists();
+
+                // Si no existe, añadir el usuario y actualizar contador
+                if (!emailExists) {
+                    // Añadir usuario a la whitelist usando el email como ID
+                    await setDoc(emailDocRef, {
+                        name: name,
+                        email: email,
+                        timestamp: new Date()
+                    });
+
+                    // Incrementar contador
+                    await setDoc(statsRef, { count: increment(1) }, { merge: true });
+
+                    // Actualizar el contador visual
+                    document.getElementById('spotsLeft').textContent = maxSpots - (currentCount + 1);
+                }
+
+                return { success: true, message: "¡Te has unido exitosamente a la whitelist!" };
+            } catch (error) {
+                console.error("Error al registrar en whitelist:", error);
+                return { success: false, message: "Ocurrió un error al procesar tu solicitud. Por favor, intenta nuevamente." };
+            }
+        };
+        window.getWhitelistStatus = async function() {
+            try {
+                // Obtener referencia al documento de estadísticas
+                const statsRef = doc(db, "stats", "whitelist");
+                const statsDoc = await getDoc(statsRef);
+
+                // Obtener valores actuales o usar valores por defecto
+                let currentCount = 0;
+                let maxSpots = 100;
+
+                if (statsDoc.exists()) {
+                    currentCount = statsDoc.data().count || 0;
+                    maxSpots = statsDoc.data().maxSpots || 100;
+                }
+
+                // Actualizar el contador visual (si existe el elemento)
+                const spotsLeftElement = document.getElementById('spotsLeft');
+                if (spotsLeftElement) {
+                    spotsLeftElement.textContent = maxSpots - currentCount;
+                }
+
+                return { currentCount, maxSpots };
+            } catch (error) {
+                console.error("Error al obtener estado de la whitelist:", error);
+                return { currentCount: 0, maxSpots: 100 };
+            }
+        };
+        // Cargar el contador real al inicio
+        document.addEventListener('DOMContentLoaded', function() {
+            window.getWhitelistStatus();
+        });
+    </script>
+</head>
+<!-- Navbar mejorado -->
+<header class="fixed top-0 left-0 right-0 z-50 py-4 transition-all duration-300" id="mainNavbar">
+    <div class="container mx-auto px-4">
+        <div class="flex justify-between items-center bg-white/90 backdrop-blur-md rounded-2xl shadow-lg py-3 px-6">
+            <div class="flex items-center">
+                <div class="text-2xl font-bold bg-gradient-to-r from-[#8B7FFF] to-[#A7A0FF] bg-clip-text text-transparent">
+                    CashAI
+                </div>
+            </div>
+            <nav class="hidden md:flex items-center space-x-1">
+                <a href="#topPage"
+                   class="nav-link relative px-4 py-2 text-gray-800 hover:text-[#8B7FFF] transition-colors text-sm font-medium">
+                    Inicio
+                </a>
+                <a href="#howItWorks"
+                   class="nav-link relative px-4 py-2 text-gray-800 hover:text-[#8B7FFF] transition-colors text-sm font-medium">
+                    ¿Cómo funciona?
+                </a>
+                <a href="#features"
+                   class="nav-link relative px-4 py-2 text-gray-800 hover:text-[#8B7FFF] transition-colors text-sm font-medium">
+                    Funciones
+                </a>
+                <a href="#security"
+                   class="nav-link relative px-4 py-2 text-gray-800 hover:text-[#8B7FFF] transition-colors text-sm font-medium">
+                    Seguridad
+                </a>
+                <a href="#pricing"
+                   class="nav-link relative px-4 py-2 text-gray-800 hover:text-[#8B7FFF] transition-colors text-sm font-medium">
+                    Precios
+                </a>
+                <div class="relative ml-4 pl-4 border-l border-gray-200 group">
+                    <button class="flex items-center text-gray-800 hover:text-[#8B7FFF] transition-colors text-sm font-medium">
+                        <i class="fas fa-globe mr-1"></i> ES <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                    </button>
+                    <div class="absolute right-0 mt-2 w-24 bg-white rounded-md shadow-lg py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">ES</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">EN</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">PT</a>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Menú móvil -->
+            <button class="md:hidden text-gray-800 hover:text-[#8B7FFF] transition-colors" id="mobileMenuButton">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Menú móvil desplegable -->
+    <div class="md:hidden hidden bg-white absolute mt-2 left-4 right-4 rounded-xl shadow-lg" id="mobileMenu">
+        <nav class="flex flex-col p-5">
+            <a href="#topPage"
+               class="flex items-center px-4 py-3 text-gray-800 hover:bg-[#8B7FFF]/10 hover:text-[#8B7FFF] rounded-lg transition-colors">
+                <i class="fas fa-home w-6"></i><span>Inicio</span>
+            </a>
+            <a href="#features"
+               class="flex items-center px-4 py-3 text-gray-800 hover:bg-[#8B7FFF]/10 hover:text-[#8B7FFF] rounded-lg transition-colors">
+                <i class="fas fa-star w-6"></i><span>Funciones</span>
+            </a>
+            <a href="#howItWorks"
+               class="flex items-center px-4 py-3 text-gray-800 hover:bg-[#8B7FFF]/10 hover:text-[#8B7FFF] rounded-lg transition-colors">
+                <i class="fas fa-question-circle w-6"></i><span>¿Cómo funciona?</span>
+            </a>
+            <a href="#security"
+               class="flex items-center px-4 py-3 text-gray-800 hover:bg-[#8B7FFF]/10 hover:text-[#8B7FFF] rounded-lg transition-colors">
+                <i class="fas fa-shield-alt w-6"></i><span>Seguridad</span>
+            </a>
+            <a href="#pricing"
+               class="flex items-center px-4 py-3 text-gray-800 hover:bg-[#8B7FFF]/10 hover:text-[#8B7FFF] rounded-lg transition-colors">
+                <i class="fas fa-tag w-6"></i><span>Precios</span>
+            </a>
+            <div class="border-t border-gray-200 mt-3 pt-3">
+                <p class="text-gray-500 px-4 mb-2 text-sm">Idioma:</p>
+                <div class="flex px-4">
+                    <a href="#" class="py-2 px-3 bg-[#8B7FFF]/10 text-[#8B7FFF] font-medium rounded-lg mr-2">ES</a>
+                    <a href="#" class="py-2 px-3 text-gray-600 hover:bg-gray-100 rounded-lg mr-2">EN</a>
+                    <a href="#" class="py-2 px-3 text-gray-600 hover:bg-gray-100 rounded-lg">PT</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+<body class="bg-white">
+<!-- Hero Section -->
+<section id="topPage" class="min-h-screen relative overflow-hidden pattern-bg">
+    <div class="container mx-auto px-4 relative z-10 pt-20 pb-20">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <div class="text-left">
+                <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+                    Controlá tu dinero con IA, <span class="text-[#8B7FFF]">de la manera más fácil</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-700 mb-8">
+                    Tomá una foto, envia un audio o subí un factura: Cash AI organiza tus finanzas en segundos
+                </p>
+                <div class="space-y-6">
+                    <div class="whitelist-counter text-2xl font-bold">
+                        ¡Quedan <span id="spotsLeft">..</span> lugares en la whitelist!
+                    </div>
+                    <form id="whitelistForm" class="space-y-4 max-w-lg">
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <input type="text" placeholder="Tu nombre"
+                                   class="px-6 py-4 rounded-xl border-2 border-[#8B7FFF] focus:outline-none focus:ring-2 focus:ring-[#8B7FFF] flex-1">
+                            <input type="email" placeholder="Tu email"
+                                   class="px-6 py-4 rounded-xl border-2 border-[#8B7FFF] focus:outline-none focus:ring-2 focus:ring-[#8B7FFF] flex-1">
+                        </div>
+                        <button type="submit"
+                                class="w-full sm:w-auto btn-primary text-white px-12 py-4 rounded-xl text-lg font-semibold">
+                            ¡Unirme a la whitelist!
+                        </button>
+                    </form>
+                    <p class="text-sm text-gray-600">
+                        ✨ Los primeros 100 usuarios recibirán 2 meses de la versión PRO gratis
+                    </p>
+                </div>
+            </div>
+            <div class="relative flex justify-end">
+                <div class="app-screenshot hero-app-screenshot">
+                    <img src="images/app-screenshot.png" alt="CashAI App Dashboard"
+                         class="w-full rounded-3xl shadow-2xl">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- App Preview Section -->
+<section class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-16">
+                Una app diseñada para vos 📱
+            </h2>
+            <div class="app-carousel">
+                <button class="carousel-button prev">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                </button>
+                <button class="carousel-button next">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </button>
+                <div class="app-carousel-container">
+                    <div class="app-carousel-slide">
+                        <div class="app-screenshot">
+                            <img src="images/app-screenshot1.png" alt="CashAI App Interface 1" class="w-full">
+                        </div>
+                    </div>
+                    <div class="app-carousel-slide">
+                        <div class="app-screenshot">
+                            <img src="images/app-screenshot2.png" alt="CashAI App Interface 2" class="w-full">
+                        </div>
+                    </div>
+                    <div class="app-carousel-slide">
+                        <div class="app-screenshot">
+                            <img src="images/app-screenshot3.png" alt="CashAI App Interface 3" class="w-full">
+                        </div>
+                    </div>
+                    <div class="app-carousel-slide">
+                        <div class="app-screenshot">
+                            <img src="images/app-screenshot4.png" alt="CashAI App Interface 4" class="w-full">
+                        </div>
+                    </div>
+                    <div class="app-carousel-slide">
+                        <div class="app-screenshot">
+                            <img src="images/app-screenshot5.png" alt="CashAI App Interface 5" class="w-full">
+                        </div>
+                    </div>
+                    <div class="app-carousel-slide">
+                        <div class="app-screenshot">
+                            <img src="images/app-screenshot6.png" alt="CashAI App Interface 6" class="w-full">
+                        </div>
+                    </div>
+                    <div class="app-carousel-slide">
+                        <div class="app-screenshot">
+                            <img src="images/app-screenshot7.png" alt="CashAI App Interface 8" class="w-full">
+                        </div>
+                    </div>
+                    <div class="app-carousel-slide">
+                        <div class="app-screenshot">
+                            <img src="images/app-screenshot8.png" alt="CashAI App Interface 8" class="w-full">
+                        </div>
+                    </div>
+                    <div class="app-carousel-slide">
+                        <div class="app-screenshot">
+                            <img src="images/app-screenshot9.png" alt="CashAI App Interface 7" class="w-full">
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-indicators">
+                    <button class="carousel-indicator active" data-index="0"></button>
+                    <button class="carousel-indicator" data-index="1"></button>
+                    <button class="carousel-indicator" data-index="2"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section id="howItWorks" class="how-it-works">
+    <h2>¿Cómo funciona?</h2>
+    <div class="steps">
+        <div class="step">
+            <div class="step-icon">
+                <i class="fas fa-camera"></i>
+            </div>
+            <h3>1. Capturá tus gastos</h3>
+            <p>Tomá una foto de tu ticket, enviá una nota de voz o subí manualmente tus gastos. Nuestra IA procesará
+                automáticamente toda la información.</p>
+        </div>
+        <div class="step">
+            <div class="step-icon">
+                <i class="fas fa-robot"></i>
+            </div>
+            <h3>2. IA al servicio de tus finanzas</h3>
+            <p>Nuestra IA no solo procesa los datos, también categoriza automáticamente tus gastos, detecta patrones y
+                aprende de tus hábitos financieros para darte insights personalizados.</p>
+        </div>
+        <div class="step">
+            <div class="step-icon">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <h3>3. Obtené insights inteligentes</h3>
+            <p>Analizá tus gastos por categoría, seguí tendencias mensuales, recibí alertas de gastos excesivos y
+                recomendaciones personalizadas. Además, nuestra IA predice tus gastos para el mes siguiente basándose en
+                tu historial, ayudándote a planificar mejor tu presupuesto.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section id="features" class="features">
+    <h2>Todo lo que necesitás para tus finanzas</h2>
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-camera"></i>
+            </div>
+            <h3>Captura Inteligente</h3>
+            <p>Tomá fotos de tus tickets o enviá notas de voz. Nuestra IA procesa todo automáticamente.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-robot"></i>
+            </div>
+            <h3>Asistente IA</h3>
+            <p>Chatbot inteligente que te ayuda a gestionar gastos y responder dudas financieras.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-chart-pie"></i>
+            </div>
+            <h3>Análisis Detallado</h3>
+            <p>Visualizá tus gastos por categoría y recibí insights personalizados.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-file-invoice"></i>
+            </div>
+            <h3>Importación de Extractos</h3>
+            <p>Subí tu extracto bancario y en minutos tendrás todas tus transacciones categorizadas y analizadas.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-wallet"></i>
+            </div>
+            <h3>Presupuesto Inteligente</h3>
+            <p>Establecé límites de gastos por categoría y recibí alertas cuando te acerques a ellos.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-file-export"></i>
+            </div>
+            <h3>Reportes Detallados</h3>
+            <p>Exportá tus datos en diferentes formatos para compartir con tu contador o analizar en Excel.</p>
+        </div>
+    </div>
+</section>
+<!-- Security Section -->
+<section id="security" class="py-20 pattern-bg">
+    <div class="container mx-auto px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-16">
+                Tu seguridad es nuestra prioridad 🔐
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="feature-card hover:bg-[#8B7FFF]/5 transition-all p-8 rounded-2xl">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-16 h-16 bg-[#8B7FFF]/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                            <i class="fas fa-lock text-[#8B7FFF] text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-2xl mb-3">Protección avanzada</h3>
+                            <p class="text-gray-600 text-lg">Utilizamos encriptación para todos los datos sensibles,
+                                garantizando que tu información financiera esté siempre protegida.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-card hover:bg-[#8B7FFF]/5 transition-all p-8 rounded-2xl">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-16 h-16 bg-[#8B7FFF]/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                            <i class="fas fa-user-shield text-[#8B7FFF] text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-2xl mb-3">Privacidad garantizada</h3>
+                            <p class="text-gray-600 text-lg">Ninguna transacción se puede rastrear a un individuo
+                                específico, manteniendo tu privacidad financiera intacta.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-card hover:bg-[#8B7FFF]/5 transition-all p-8 rounded-2xl">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-16 h-16 bg-[#8B7FFF]/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                            <i class="fas fa-clipboard-check text-[#8B7FFF] text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-2xl mb-3">Cumplimiento normativo</h3>
+                            <p class="text-gray-600 text-lg">Cumplimos con todas las normativas de protección de datos y
+                                RGPD para garantizar el manejo adecuado de tu información.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-card hover:bg-[#8B7FFF]/5 transition-all p-8 rounded-2xl">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-16 h-16 bg-[#8B7FFF]/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                            <i class="fas fa-sliders-h text-[#8B7FFF] text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-2xl mb-3">Control total</h3>
+                            <p class="text-gray-600 text-lg">Tú decides qué información compartir. Nuestros sistemas te
+                                dan control completo sobre tus datos en todo momento.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-16 text-center">
+                <span class="inline-block px-8 py-4 rounded-full bg-[#A8E6CF] text-gray-900 font-semibold text-lg">
+                    <i class="fas fa-certificate mr-2"></i> Certificados en seguridad de datos financieros
+                </span>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Pricing Section -->
+<section id="pricing" class="pricing bg-white">
+    <h2>Planes y Precios</h2>
+    <div class="pricing-grid">
+        <div class="pricing-card">
+            <div class="pricing-header">
+                <h3>Free</h3>
+                <div class="price">Gratis</div>
+            </div>
+            <ul class="pricing-features">
+                <li><i class="fas fa-check"></i> Captura de tickets por foto</li>
+                <!--                    <li><i class="fas fa-check"></i> Categorización básica</li>-->
+                <li><i class="fas fa-check"></i> Categorización avanzada</li>
+                <li><i class="fas fa-check"></i> Visualización de gastos</li>
+                <li><i class="fas fa-check"></i> 15 notas de voz por mes</li>
+                <li><i class="fas fa-check"></i> Límite: 200 transacciones o 5M Gs/mes</li>
+            </ul>
+            <a href="#" class="cta-button">Comenzar Gratis</a>
+        </div>
+        <div class="pricing-card">
+            <div class="pricing-header">
+                <h3>Avanzado</h3>
+                <div class="price">Gs. 30.000<span>/mes</span></div>
+            </div>
+            <ul class="pricing-features">
+                <li><i class="fas fa-check"></i> Todo lo de Free</li>
+                <li><i class="fas fa-check"></i> Notas de voz ilimitadas</li>
+                <li><i class="fas fa-check"></i> Resumen mensual inteligente de tus finanzas</li>
+                <li><i class="fas fa-check"></i> Alertas personalizadas</li>
+                <li><i class="fas fa-check"></i> Transacciones y montos ilimitados</li>
+            </ul>
+            <a href="#" class="cta-button">Comenzar Ahora</a>
+        </div>
+        <div class="pricing-card">
+            <div class="pricing-header">
+                <h3>PRO</h3>
+                <div class="price">Gs. 55.000<span>/mes</span></div>
+            </div>
+            <ul class="pricing-features">
+                <li><i class="fas fa-check"></i> Todo lo de Avanzado</li>
+                <li><i class="fas fa-check"></i> Predicción de gastos</li>
+                <li><i class="fas fa-check"></i> Reportes avanzados</li>
+                <li><i class="fas fa-check"></i> Importación de extractos bancarios</li>
+                <li><i class="fas fa-check"></i> Exportación de datos</li>
+            </ul>
+            <a href="" class="cta-button">Comenzar Ahora</a>
+        </div>
+        <div class="pricing-card popular">
+            <div class="pricing-header">
+                <h3>PRO Anual</h3>
+                <div class="price">Gs. 44.000<span>/mes</span></div>
+                <div class="savings">¡Ahorrá 20%!</div>
+            </div>
+            <ul class="pricing-features">
+                <li><i class="fas fa-check"></i> Todo lo de PRO</li>
+                <li><i class="fas fa-check"></i> Pago anual con descuento</li>
+                <li><i class="fas fa-check"></i> Conservas las fotos de tus facturas para usos contables</li>
+                <li><i class="fas fa-check"></i> Acceso anticipado a nuevas funciones</li>
+                <li><i class="fas fa-check"></i> Asistente IA para consultar tus finanzas</li>
+            </ul>
+            <a href="#" class="cta-button">Comenzar Ahora</a>
+        </div>
+    </div>
+</section>
+
+
+<!-- B2B Section -->
+<section class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+                        Potenciá tu negocio con nuestra API 🚀
+                    </h2>
+                    <p class="text-xl text-gray-600 mb-8">
+                        Integrá CashAI en tu plataforma y ofrecé a tus clientes una experiencia financiera única
+                    </p>
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-8 h-8 bg-[#8B7FFF]/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                <svg class="w-4 h-4 text-[#8B7FFF]" fill="none" stroke="currentColor"
+                                     viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-lg mb-2">API REST Moderna</h3>
+                                <p class="text-gray-600">Documentación clara y endpoints intuitivos para una integración
+                                    sin complicaciones.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="w-8 h-8 bg-[#8B7FFF]/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                <svg class="w-4 h-4 text-[#8B7FFF]" fill="none" stroke="currentColor"
+                                     viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-lg mb-2">Procesamiento de Transacciones</h3>
+                                <p class="text-gray-600">Automatizá transacciones con nuestra IA y OCR: procesá todo
+                                    tipo de transacciones y códigos MCC de Visa y Mastercard con categorización
+                                    avanzada.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="w-8 h-8 bg-[#8B7FFF]/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                <svg class="w-4 h-4 text-[#8B7FFF]" fill="none" stroke="currentColor"
+                                     viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-lg mb-2">Análisis Financiero</h3>
+                                <p class="text-gray-600">Obtené insights valiosos sobre los patrones de gasto de tus
+                                    usuarios.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8">
+                        <button class="btn-primary text-white px-8 py-4 rounded-xl text-lg font-semibold cursor-not-allowed opacity-80">
+                            Próximamente
+                        </button>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="bg-white p-8 rounded-2xl shadow-lg">
+                            <pre class="text-sm text-gray-800 overflow-x-auto"><code>
+POST /api/v1/process-receipt
+Content-Type: application/json
+
+{
+  "image": "base64_encoded_image",
+  "type": "receipt",
+  "options": {
+    "extract_items": true,
+    "categorize": true
+  }
+}
+                            </code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<!-- Nuevo Footer -->
+<footer class="bg-gray-900 text-white">
+    <!-- Mantenemos la sección "No te quedes afuera" como parte superior del footer -->
+    <div class="py-12">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-3xl font-bold mb-6">
+                    ¡No te quedes afuera! 🚀
+                </h2>
+                <p class="text-xl mb-8">
+                    Sé parte de los primeros en revolucionar sus finanzas con Cash AI
+                </p>
+                <button class="btn-primary text-white px-8 py-4 rounded-xl text-lg font-semibold"
+                        onclick="scrollToWhitelist()">
+                    ¡Unirme a la whitelist!
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Nueva sección de footer con copyright y redes sociales -->
+    <div class="border-t border-gray-800 py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p class="text-gray-400">© 2022 CashAI - Todos los derechos reservados</p>
+                </div>
+                <div>
+                    <p class="text-gray-400 mb-3">Encuéntranos en:</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-white hover:text-[#8B7FFF] transition-colors">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="#" class="text-white hover:text-[#8B7FFF] transition-colors">
+                            <i class="fab fa-facebook-f text-xl"></i>
+                        </a>
+                        <a href="#" class="text-white hover:text-[#8B7FFF] transition-colors">
+                            <i class="fab fa-youtube text-xl"></i>
+                        </a>
+                        <a href="#" class="text-white hover:text-[#8B7FFF] transition-colors">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Manejo del formulario de whitelist
+    document.addEventListener('DOMContentLoaded', function() {
+        const whitelistForm = document.getElementById('whitelistForm');
+
+        whitelistForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            // Obtener los valores del formulario
+            const nameInput = whitelistForm.querySelector('input[type="text"]');
+            const emailInput = whitelistForm.querySelector('input[type="email"]');
+
+            const name = nameInput.value.trim();
+            const email = emailInput.value.trim();
+
+            // Validación básica
+            if (!name || !email) {
+                showMessage("Por favor completa todos los campos", "error");
+                return;
+            }
+
+            if (!validateEmail(email)) {
+                showMessage("Por favor ingresa un email válido", "error");
+                return;
+            }
+
+            // Mostrar estado de carga
+            const submitBtn = whitelistForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Procesando...';
+            submitBtn.disabled = true;
+
+            // Enviar a Firebase
+            try {
+                const response = await window.submitToWhitelist(name, email);
+
+                if (response.success) {
+                    showMessage(response.message, "success");
+                    nameInput.value = '';
+                    emailInput.value = '';
+                } else {
+                    showMessage(response.message, "error");
+                }
+            } catch (error) {
+                showMessage("Error al procesar tu solicitud", "error");
+                console.error(error);
+            }
+
+            // Restaurar botón
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        });
+
+        // Función para validar email
+        function validateEmail(email) {
+            // Convertir a minúsculas antes de validar
+            email = email.toLowerCase();
+
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        // Función para mostrar mensajes
+        function showMessage(message, type) {
+            // Crear elemento para mensaje
+            const messageEl = document.createElement('div');
+            messageEl.className = type === 'success' ? 'bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4' : 'bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4';
+            messageEl.innerHTML = message;
+
+            // Insertar antes del formulario
+            whitelistForm.parentNode.insertBefore(messageEl, whitelistForm);
+
+            // Desaparecer después de 5 segundos
+            setTimeout(() => {
+                messageEl.remove();
+            }, 5000);
+        }
+    });
+    // Initialize GSAP
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Animate feature cards
+    gsap.utils.toArray('.feature-card').forEach(card => {
+        gsap.from(card, {
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            scrollTrigger: {
+                trigger: card,
+                start: 'top bottom-=100',
+                toggleActions: 'play none none reverse'
+            }
+        });
+    });
+
+    // Add more animations here
+    gsap.from('.app-screenshot', {
+        rotateY: -25,
+        opacity: 0,
+        duration: 1.5,
+        scrollTrigger: {
+            trigger: '.app-screenshot',
+            start: 'top bottom',
+            end: 'bottom center',
+            scrub: 1
+        }
+    });
+
+    // Animate steps
+    gsap.utils.toArray('.steps-container > div').forEach((step, index) => {
+        gsap.from(step, {
+            x: index % 2 === 0 ? -50 : 50,
+            opacity: 0,
+            duration: 1,
+            scrollTrigger: {
+                trigger: step,
+                start: 'top bottom-=100',
+                toggleActions: 'play none none reverse'
+            }
+        });
+    });
+
+    // Carousel functionality
+    const carousel = document.querySelector('.app-carousel-container');
+    const slides = document.querySelectorAll('.app-carousel-slide');
+    const indicators = document.querySelectorAll('.carousel-indicator');
+    const prevButton = document.querySelector('.carousel-button.prev');
+    const nextButton = document.querySelector('.carousel-button.next');
+    let currentIndex = 0;
+    const slidesToShow = window.innerWidth >= 768 ? 3 : 1;
+    const totalSlides = slides.length;
+
+    function updateCarousel() {
+        const offset = currentIndex * -320 - (currentIndex * 20); // 320px es el ancho del slide + 20px de gap
+        carousel.style.transform = `translateX(${offset}px)`;
+
+        // Update indicators
+        indicators.forEach((indicator, index) => {
+            indicator.classList.toggle('active', index === Math.floor(currentIndex / slidesToShow));
+        });
+
+        // Update button states
+        prevButton.style.opacity = currentIndex === 0 ? '0.5' : '1';
+        nextButton.style.opacity = currentIndex >= totalSlides - slidesToShow ? '0.5' : '1';
+    }
+
+    nextButton.addEventListener('click', () => {
+        if (currentIndex < totalSlides - slidesToShow) {
+            currentIndex++;
+            updateCarousel();
+        }
+    });
+
+    prevButton.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateCarousel();
+        }
+    });
+
+    indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => {
+            currentIndex = index * slidesToShow;
+            if (currentIndex > totalSlides - slidesToShow) {
+                currentIndex = totalSlides - slidesToShow;
+            }
+            updateCarousel();
+        });
+    });
+
+    // Responsive handling
+    window.addEventListener('resize', () => {
+        const newSlidesToShow = window.innerWidth >= 768 ? 3 : 1;
+        if (newSlidesToShow !== slidesToShow) {
+            currentIndex = 0;
+            updateCarousel();
+        }
+    });
+
+    // Initial setup
+    updateCarousel();
+
+    // Security animation section
+    // Añade esto a tu script existente
+    document.addEventListener('DOMContentLoaded', function () {
+        // Crear partículas para la animación de seguridad
+        const securityContainer = document.querySelector('.security-particles');
+        if (securityContainer) {
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('security-particle');
+
+                // Posición y tamaño aleatorio
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.width = (3 + Math.random() * 5) + 'px';
+                particle.style.height = particle.style.width;
+
+                // Animación con retardo aleatorio
+                particle.style.animationDelay = (Math.random() * 4) + 's';
+                particle.style.animationDuration = (3 + Math.random() * 5) + 's';
+
+                securityContainer.appendChild(particle);
+            }
+        }
+
+        // Animación de pulso para el escudo
+        const securityAnimation = document.getElementById('securityAnimation');
+        if (securityAnimation) {
+            gsap.to(securityAnimation, {
+                scale: 1.03,
+                duration: 2,
+                repeat: -1,
+                yoyo: true,
+                ease: "power1.inOut"
+            });
+        }
+    });
+
+    // Añade esta animación a tus estilos
+    if (!document.querySelector('style').textContent.includes('@keyframes float-around')) {
+        const styleSheet = document.createElement('style');
+        styleSheet.textContent = `
+            @keyframes float-around {
+                0% { transform: translateY(0) translateX(0); opacity: 0; }
+                25% { opacity: 1; }
+                75% { opacity: 1; }
+                100% { transform: translateY(-20px) translateX(10px); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(styleSheet);
+    }
+
+    // Función para desplazarse al formulario de whitelist
+    function scrollToWhitelist() {
+        const topPageSection = document.getElementById('topPage');
+        if (topPageSection) {
+            console.log('Desplazando a topPage');
+            topPageSection.scrollIntoView({behavior: 'smooth'});
+        } else {
+            console.error('No se encontró el elemento con ID topPage');
+        }
+    }
+
+    // Toggle para el menú móvil
+    const mobileMenuButton = document.getElementById('mobileMenuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    if (mobileMenuButton && mobileMenu) {
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Cerrar el menú al hacer clic en un enlace
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+    }
+
+    //Seccion navbar
+    // Agregar este código a tu sección de script existente
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const scrollButton = document.querySelector('button[onclick="scrollToWhitelist()"]');
+        if (scrollButton) {
+            // Eliminamos el onclick del HTML y lo añadimos aquí para evitar conflictos
+            scrollButton.removeAttribute('onclick');
+            scrollButton.addEventListener('click', function (e) {
+                e.preventDefault();
+                scrollToWhitelist();
+            });
+            console.log('Botón de scroll inicializado correctamente');
+        } else {
+            console.error('No se encontró el botón para el scroll');
+        }
+
+        // Cambiar apariencia del navbar al hacer scroll
+        const navbar = document.getElementById("mainNavbar");
+        const navLinks = document.querySelectorAll(".nav-link");
+
+        // función setActiveNavLink para que no mantenga los enlaces activos
+        function setActiveNavLink() {
+            const sections = document.querySelectorAll("section[id]");
+            let scrollPosition = window.scrollY + 100; // Offset para activación temprana
+
+            // Primero quitamos la clase active de todos los enlaces
+            navLinks.forEach(link => {
+                link.classList.remove("active");
+                link.style.color = ""; // Quitar color destacado
+            });
+
+            // Luego activamos solo el enlace de la sección actual
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100; // Ajuste para el navbar fijo
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute("id");
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    navLinks.forEach(link => {
+                        if (link.getAttribute("href") === "#" + sectionId) {
+                            link.classList.add("active");
+                            link.style.color = "#8B7FFF"; // Color destacado para la sección activa
+                        }
+                    });
+                }
+            });
+        }
+
+        // Cambiar apariencia del navbar al hacer scroll
+        window.addEventListener("scroll", function () {
+            // Obtener la altura de la sección hero para saber cuándo hemos pasado de ella
+            const heroSection = document.getElementById("topPage");
+            const heroHeight = heroSection.offsetHeight;
+
+            if (window.scrollY > heroHeight - 100) { // -100 para que la transición comience un poco antes
+                // Cuando pasamos la sección hero, hacemos el navbar más pequeño y semi-transparente
+                navbar.classList.add("scrolled");
+                navbar.style.padding = "0.5rem 0"; // Menor padding
+                navbar.querySelector(".container > div").classList.add("bg-white/60"); // Más transparente
+                navbar.querySelector(".container > div").classList.remove("bg-white/90");
+            } else {
+                // Cuando estamos en la sección hero, navbar normal
+                navbar.classList.remove("scrolled");
+                navbar.style.padding = "1rem 0"; // Padding normal
+                navbar.querySelector(".container > div").classList.remove("bg-white/60");
+                navbar.querySelector(".container > div").classList.add("bg-white/90");
+            }
+
+            // Actualizar el enlace activo
+            setActiveNavLink();
+
+        });
+
+    // Función para hacer scroll suave a las secciones
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            // Obtener el ID de la sección desde el href
+            const targetId = this.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+
+            if (targetSection) {
+                // Scroll suave a la sección
+                targetSection.scrollIntoView({behavior: 'smooth'});
+
+                // Cerrar el menú móvil si está abierto
+                if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                }
+            }
+        });
+    });
+    //Mas configuraciones movil.
+        // Buscamos el estilo existente para reemplazarlo o añadir uno nuevo
+        const existingMobileStyles = document.querySelector('style[data-mobile-styles]');
+
+        if (existingMobileStyles) {
+            // Si ya existe, lo actualizamos
+            existingMobileStyles.textContent = getMobileStyles();
+        } else {
+            // Si no existe, creamos uno nuevo
+            const mobileStyles = document.createElement('style');
+            mobileStyles.setAttribute('data-mobile-styles', 'true');
+            mobileStyles.textContent = getMobileStyles();
+            document.head.appendChild(mobileStyles);
+        }
+
+        // Función para comprobar la visibilidad del footer en móvil
+        function checkFooterVisibility() {
+            if (window.innerWidth <= 640) {
+                const footer = document.querySelector('footer');
+                if (footer) {
+                    footer.style.display = 'block';
+                    footer.style.visibility = 'visible';
+                    footer.style.opacity = '1';
+                }
+            }
+        }
+
+        // Ejecutamos la función al cargar y al cambiar el tamaño de la ventana
+        checkFooterVisibility();
+        window.addEventListener('resize', checkFooterVisibility);
+  }); // Cierre correcto del evento DOMContentLoaded
+
+    // Añadimos estilos específicos para la sección de precios en móvil
+    document.addEventListener("DOMContentLoaded", function() {
+        // Verificar si ya existe el estilo para precios en móvil
+        const existingPricingStyles = document.querySelector('style[data-mobile-pricing]');
+
+        if (!existingPricingStyles) {
+            const pricingStyles = document.createElement('style');
+            pricingStyles.setAttribute('data-mobile-pricing', 'true');
+            pricingStyles.textContent = `
+      /* Estilos específicos para la sección de precios en móvil */
+      @media (max-width: 640px) {
+        /* Reducir tamaño de las tarjetas de precios */
+        .pricing-card {
+          padding: 20px 15px;
+          margin-bottom: 15px;
+        }
+
+        /* Reducir tamaños de texto */
+        .pricing-header h3 {
+          font-size: 1.2rem;
+          margin-bottom: 8px;
+        }
+
+        .price {
+          font-size: 1.5rem;
+          margin-bottom: 8px;
+        }
+
+        .pricing-features {
+          margin-bottom: 15px;
+        }
+
+        .pricing-features li {
+          font-size: 0.85rem;
+          margin-bottom: 8px;
+          padding-right: 8px;
+        }
+
+        .pricing-features i {
+          font-size: 0.9rem;
+        }
+
+        /* Ajustar botón CTA */
+        .cta-button {
+          padding: 10px 16px;
+          font-size: 0.9rem;
+          border-radius: 8px;
+        }
+
+        /* Reducir el espacio vertical */
+        .pricing {
+          padding: 40px 0;
+        }
+
+        .pricing h2 {
+          margin-bottom: 30px;
+          font-size: 2rem;
+        }
+
+        /* Ajustar tamaño del badge de ahorro */
+        .savings {
+          padding: 4px 10px;
+          font-size: 0.8rem;
+        }
+      }
+    `;
+
+            document.head.appendChild(pricingStyles);
+
+            // Asegurarse que las tarjetas tengan la altura adecuada en móvil
+            function adjustPricingCards() {
+                const pricingCards = document.querySelectorAll('.pricing-card');
+
+                if (window.innerWidth <= 640) {
+                    // Eliminar estilos de altura fija si existen
+                    pricingCards.forEach(card => {
+                        card.style.height = 'auto';
+                    });
+
+                    console.log('Tarjetas de precios ajustadas para móvil');
+                }
+            }
+
+            // Ejecutar al cargar y al cambiar el tamaño de la ventana
+            adjustPricingCards();
+            window.addEventListener('resize', adjustPricingCards);
+        }
+    });
+    function getMobileStyles() {
+        return `
+    /* Ajustes móviles */
+    @media (max-width: 640px) {
+      /* Forzar visibilidad del footer */
+      footer {
+        display: block !important;
+        position: relative !important;
+        z-index: 10;
+        width: 100%;
+        overflow: visible;
+      }
+
+      /* Solo ocultar la imagen app-screenshot del hero */
+      #topPage .app-screenshot {
+        display: none;
+      }
+
+      /* Ajustar sección hero para móviles */
+      #topPage .max-w-6xl {
+        grid-template-columns: 1fr;
+      }
+
+      /* Garantizar que el contenido del hero está centrado sin la imagen */
+      #topPage .text-left {
+        text-align: center;
+      }
+
+      /* Hacer más pequeñas las otras imágenes pero no ocultarlas */
+      .feature-icon {
+        width: 48px;
+        height: 48px;
+      }
+
+      .app-carousel-slide img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      /* Garantizar espacio suficiente al fondo de la página */
+      body {
+        padding-bottom: 0;
+        min-height: 100vh;
+      }
+    }
+
+    /* En tablets mostramos la imagen más pequeña */
+    @media (min-width: 641px) and (max-width: 1024px) {
+      #topPage .app-screenshot {
+        max-width: 280px;
+      }
+    }
+  `;
+    }
+    // Añadimos estilos específicos para secciones adicionales en móvil
+    document.addEventListener("DOMContentLoaded", function() {
+        // Verificar si ya existe el estilo para secciones en móvil
+        const existingSectionStyles = document.querySelector('style[data-mobile-sections]');
+
+        if (!existingSectionStyles) {
+            const sectionStyles = document.createElement('style');
+            sectionStyles.setAttribute('data-mobile-sections', 'true');
+            sectionStyles.textContent = `
+      /* Estilos específicos para secciones How It Works, Features y Security en móvil */
+      @media (max-width: 640px) {
+        /* 1. How It Works Section */
+        .how-it-works {
+          padding: 40px 0;
+        }
+
+        .how-it-works h2 {
+          font-size: 1.8rem;
+          margin-bottom: 30px;
+        }
+
+        .step {
+          padding: 20px 15px;
+          margin-bottom: 15px;
+        }
+
+        .step-icon {
+          width: 48px;
+          height: 48px;
+          margin-bottom: 15px;
+        }
+
+        .step-icon i {
+          font-size: 18px;
+        }
+
+        .step h3 {
+          font-size: 1.2rem;
+          margin-bottom: 10px;
+        }
+
+        .step p {
+          font-size: 0.9rem;
+          line-height: 1.4;
+        }
+
+        /* 2. Features Section */
+        .features {
+          padding: 40px 0;
+        }
+
+        .features h2 {
+          font-size: 1.8rem;
+          margin-bottom: 30px;
+        }
+
+        .feature-card {
+          padding: 20px 15px;
+          margin-bottom: 15px;
+        }
+
+        .feature-icon {
+          width: 48px;
+          height: 48px;
+          margin-bottom: 15px;
+        }
+
+        .feature-icon i {
+          font-size: 18px;
+        }
+
+        .feature-card h3 {
+          font-size: 1.2rem;
+          margin-bottom: 10px;
+        }
+
+        .feature-card p {
+          font-size: 0.9rem;
+          line-height: 1.4;
+        }
+
+        /* 3. Security Section */
+        #security {
+          padding: 40px 0;
+        }
+
+        #security h2 {
+          font-size: 1.8rem;
+          margin-bottom: 20px;
+        }
+
+        #security h3 {
+          font-size: 1.2rem;
+        }
+
+        #security p,
+        #security li {
+          font-size: 0.9rem;
+          line-height: 1.4;
+        }
+
+        .security-shield {
+          padding: 15px;
+        }
+
+        .security-feature {
+          margin-bottom: 15px;
+        }
+
+        .security-feature-icon {
+          width: 40px;
+          height: 40px;
+        }
+
+        .security-feature-icon i {
+          font-size: 18px;
+        }
+
+        /* Ajuste para el pre con código en la sección B2B */
+        pre.code-example {
+          font-size: 0.7rem;
+          padding: 10px;
+        }
+
+        /* Ajuste general para gaps y márgenes en móvil */
+        .features-grid,
+        .steps {
+          gap: 15px;
+        }
+      }
+    `;
+
+            document.head.appendChild(sectionStyles);
+
+            console.log('Estilos móviles aplicados a secciones adicionales');
+        }
+    });
+</script>
+</body>
+</html> 
